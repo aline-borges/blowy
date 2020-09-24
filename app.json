@@ -19,6 +19,9 @@
     "ios": {
       "supportsTablet": true
     },
+    "androidStatusBar": {
+      "barStyle": "light"
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     }
