@@ -9,16 +9,13 @@ const Welcome = () => {
         colors={['#2EA6CD', '#285292']}
         style={ styles.container }
         >      
-      <SafeAreaView style={ styles.container }> 
-        <View>
-        <StatusBar style="light" />  
-          <Image
-          style={ styles.image }
-              source={require("./assets/logo.png")}
-            />
-          <StatusBar style="auto" />
-        </View>
-      </SafeAreaView>
+      <View>
+      <StatusBar style="light-content" />  
+        <Image
+        style={ styles.logo }
+            source={require("../../../assets/images/logo/logo.png")}
+          />
+      </View>
     </LinearGradient>
   );
 }
@@ -29,7 +26,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  image: {
+  logo: {
     resizeMode: "cover",
     height: 132,
     width: 182,
