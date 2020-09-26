@@ -11,7 +11,15 @@ import OpenWeather from '../../services/apis/openWeather/index';
 
 const Search = ({ navigation }) => {
   const [value, onChangeText] = useState('');
-  const handleSubmit = () => OpenWeather(value)
+
+  const handleSubmit = () => {
+    OpenWeather(value)
+  }
+
+  const handleButtonPress = () => {
+    OpenWeather(value)
+    return  navigation.navigate('Location')
+  }
 
   let [fontsLoaded] = useFonts({
     'Montserrat-Thin': require('../../../assets/fonts/montserrat/Montserrat-Thin.ttf'),
@@ -50,8 +58,7 @@ const Search = ({ navigation }) => {
           </View>
           <TouchableOpacity 
           style={ styles.button }
-          onPress={handleSubmit}
-          onPress={() => navigation.navigate('Location')}
+          onPress={handleButtonPress}
           >
             <Text style={ styles.textButton}>Buscar</Text>
           </TouchableOpacity>

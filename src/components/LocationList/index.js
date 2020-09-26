@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppLoading } from 'expo';
 import { useFonts } from 'expo-font';
 import { Feather } from '@expo/vector-icons';
 
-const LocationList = () => {
+const LocationList = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
     'Montserrat-Thin': require('../../../assets/fonts/montserrat/Montserrat-Thin.ttf'),
     'Montserrat-ExtraLight': require('../../../assets/fonts/montserrat/Montserrat-ExtraLight.ttf'),
@@ -45,7 +47,11 @@ const LocationList = () => {
             </View>
             <Text style={ styles.temperature }>16°</Text>
           </View>
-          <Feather name="plus-circle" style={ styles.icon } />
+          <TouchableOpacity
+          onPress={ () => navigation.navigate('Search')}
+          >
+            <Feather name="plus-circle" style={ styles.icon } />
+          </TouchableOpacity>
         </View>      
       </LinearGradient>
     );
