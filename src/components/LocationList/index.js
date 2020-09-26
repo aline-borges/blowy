@@ -62,9 +62,12 @@ const styles = StyleSheet.create({
   },
   containerRow: {
     flexDirection: 'row',
-    padding: 25,
+    paddingTop: 25,
+    paddingBottom: 25,
     borderBottomWidth: 1,
-    borderColor: '#fefefe'
+    borderColor: '#fefefe',
+    marginLeft: 15,
+    marginRight: 15
   },
   city: {
     color: '#fefefe',

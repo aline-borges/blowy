@@ -18,119 +18,116 @@ const Location = () => {
   } 
   else {
     return (   
-      <LinearGradient 
-      colors={['#2EA6CD', '#285292']}
-      style={ styles.container }
-      >      
-      <View style={ styles.container }>
-        <Text style={ styles.city } >Rio de Janeiro</Text>
-        <Text style={ styles.temperature }>20°</Text>
-        <View style={ styles.containerRow }>
-          <Text style={ styles.minTemperature }>19°/</Text>
-          <Text style={ styles.maxTemperature }>22°</Text>
-        </View>
-        <Text style={ styles.dayOfWeek }>Sexta-Feira</Text>
-        <View style={ styles.containerRow }>
-          <View style={ styles.containerTemperature }>
-            <Text style={ styles.temperatureNowTitle}>Agora</Text>
-            <View style={ styles.containerTemperatureRow }>
-              <Image 
-              source={require("../../../assets/icons/weather/day/rain.png")} 
-              style={ styles.weatherIcon }
-              />
-              <Text style={ styles.temperatureNow}>22°</Text>
+      <ImageBackground source={ require('../../../assets/images/weather/background/night/rain.png')} style={styles.image}>
+        <View style={ styles.container }>
+          <Text style={ styles.city } >Rio de Janeiro</Text>
+          <Text style={ styles.temperature }>20°</Text>
+          <View style={ styles.containerRow }>
+            <Text style={ styles.minTemperature }>19°/</Text>
+            <Text style={ styles.maxTemperature }>22°</Text>
+          </View>
+          <Text style={ styles.dayOfWeek }>Sexta-Feira</Text>
+          <View style={ styles.containerTemperaturesRow }>
+            <View style={ styles.containerTemperature }>
+              <Text style={ styles.temperatureNowTitle}>Agora</Text>
+              <View style={ styles.containerTemperatureRow }>
+                <Image 
+                source={require("../../../assets/icons/weather/day/rain.png")} 
+                style={ styles.weatherIcon }
+                />
+                <Text style={ styles.temperatureNow}>22°</Text>
+              </View>
+            </View>
+            <View style={ styles.containerTemperature }>
+              <Text style={ styles.temperatureRestOfTheDayTitle}>05h</Text>
+              <View style={ styles.containerTemperatureRow }>
+                <Image 
+                source={require("../../../assets/icons/weather/day/rain.png")} 
+                style={ styles.weatherIcon }
+                />
+                <Text style={ styles.temperatureRestOfTheDay}>22°</Text>
+              </View>
+            </View>
+            <View style={ styles.containerTemperature }>
+              <Text style={ styles.temperatureRestOfTheDayTitle}>06h</Text>
+              <View style={ styles.containerTemperatureRow }>
+                <Image 
+                source={require("../../../assets/icons/weather/day/rain.png")} 
+                style={ styles.weatherIcon }
+                />
+                <Text style={ styles.temperatureRestOfTheDay}>22°</Text>
+              </View>
+            </View>
+            <View style={ styles.containerTemperature }>
+              <Text style={ styles.temperatureRestOfTheDayTitle}>07h</Text>
+              <View style={ styles.containerTemperatureRow }>
+                <Image 
+                source={require("../../../assets/icons/weather/day/rain.png")} 
+                style={ styles.weatherIcon }
+                />
+                <Text style={ styles.temperatureRestOfTheDay}>22°</Text>
+              </View>
             </View>
           </View>
-          <View style={ styles.containerTemperature }>
-            <Text style={ styles.temperatureRestOfTheDayTitle}>05h</Text>
-            <View style={ styles.containerTemperatureRow }>
+          <View style={ styles.containerDaysOfWeek}>
+            <View style={ styles.containerDaysOfWeekRow}>
+              <Text style={ styles.dayOfWeekName}>Sábado</Text>
               <Image 
-              source={require("../../../assets/icons/weather/day/rain.png")} 
-              style={ styles.weatherIcon }
-              />
-              <Text style={ styles.temperatureRestOfTheDay}>22°</Text>
+                source={require("../../../assets/icons/weather/day/sun.png")} 
+                style={ styles.weatherIconDayOfWeek }
+                />
+                <View style={ styles.containerMinMaxRow }>
+                  <Text style={ styles.minTemperature }>19°/</Text>
+                  <Text style={ styles.maxTemperature }>22°</Text>
+                </View>
             </View>
-          </View>
-          <View style={ styles.containerTemperature }>
-            <Text style={ styles.temperatureRestOfTheDayTitle}>06h</Text>
-            <View style={ styles.containerTemperatureRow }>
+            <View style={ styles.containerDaysOfWeekRow}>
+              <Text style={ styles.dayOfWeekName}>Domingo</Text>
               <Image 
-              source={require("../../../assets/icons/weather/day/rain.png")} 
-              style={ styles.weatherIcon }
-              />
-              <Text style={ styles.temperatureRestOfTheDay}>22°</Text>
+                source={require("../../../assets/icons/weather/day/sun.png")} 
+                style={ styles.weatherIconDayOfWeek }
+                />
+                <View style={ styles.containerMinMaxRow }>
+                  <Text style={ styles.minTemperature }>19°/</Text>
+                  <Text style={ styles.maxTemperature }>22°</Text>
+                </View>
             </View>
-          </View>
-          <View style={ styles.containerTemperature }>
-            <Text style={ styles.temperatureRestOfTheDayTitle}>07h</Text>
-            <View style={ styles.containerTemperatureRow }>
+            <View style={ styles.containerDaysOfWeekRow}>
+              <Text style={ styles.dayOfWeekName}>Segunda-Feira</Text>
               <Image 
-              source={require("../../../assets/icons/weather/day/rain.png")} 
-              style={ styles.weatherIcon }
-              />
-              <Text style={ styles.temperatureRestOfTheDay}>22°</Text>
+                source={require("../../../assets/icons/weather/day/sun.png")} 
+                style={ styles.weatherIconDayOfWeek }
+                />
+                <View style={ styles.containerMinMaxRow }>
+                  <Text style={ styles.minTemperature }>19°/</Text>
+                  <Text style={ styles.maxTemperature }>22°</Text>
+                </View>
             </View>
-          </View>
-        </View>
-        <View style={ styles.containerDaysOfWeek}>
-          <View style={ styles.containerDaysOfWeekRow}>
-            <Text style={ styles.dayOfWeekName}>Sábado</Text>
-            <Image 
-              source={require("../../../assets/icons/weather/day/sun.png")} 
-              style={ styles.weatherIconDayOfWeek }
-              />
-              <View style={ styles.containerMinMaxRow }>
-                <Text style={ styles.minTemperature }>19°/</Text>
-                <Text style={ styles.maxTemperature }>22°</Text>
-              </View>
-          </View>
-          <View style={ styles.containerDaysOfWeekRow}>
-            <Text style={ styles.dayOfWeekName}>Domingo</Text>
-            <Image 
-              source={require("../../../assets/icons/weather/day/sun.png")} 
-              style={ styles.weatherIconDayOfWeek }
-              />
-              <View style={ styles.containerMinMaxRow }>
-                <Text style={ styles.minTemperature }>19°/</Text>
-                <Text style={ styles.maxTemperature }>22°</Text>
-              </View>
-          </View>
-          <View style={ styles.containerDaysOfWeekRow}>
-            <Text style={ styles.dayOfWeekName}>Segunda-Feira</Text>
-            <Image 
-              source={require("../../../assets/icons/weather/day/sun.png")} 
-              style={ styles.weatherIconDayOfWeek }
-              />
-              <View style={ styles.containerMinMaxRow }>
-                <Text style={ styles.minTemperature }>19°/</Text>
-                <Text style={ styles.maxTemperature }>22°</Text>
-              </View>
-          </View>
-          <View style={ styles.containerDaysOfWeekRow}>
-            <Text style={ styles.dayOfWeekName}>Terça-Feira</Text>
-            <Image 
-              source={require("../../../assets/icons/weather/day/sun.png")} 
-              style={ styles.weatherIconDayOfWeek }
-              />
-              <View style={ styles.containerMinMaxRow }>
-                <Text style={ styles.minTemperature }>19°/</Text>
-                <Text style={ styles.maxTemperature }>22°</Text>
-              </View>
-          </View>
-          <View style={ styles.containerDaysOfWeekRow}>
-            <Text style={ styles.dayOfWeekName}>Quarta-feira</Text>
-            <Image 
-              source={require("../../../assets/icons/weather/day/sun.png")} 
-              style={ styles.weatherIconDayOfWeek }
-              />
-              <View style={ styles.containerMinMaxRow }>
-                <Text style={ styles.minTemperature }>19°/</Text>
-                <Text style={ styles.maxTemperature }>22°</Text>
-              </View>
+            <View style={ styles.containerDaysOfWeekRow}>
+              <Text style={ styles.dayOfWeekName}>Terça-Feira</Text>
+              <Image 
+                source={require("../../../assets/icons/weather/day/sun.png")} 
+                style={ styles.weatherIconDayOfWeek }
+                />
+                <View style={ styles.containerMinMaxRow }>
+                  <Text style={ styles.minTemperature }>19°/</Text>
+                  <Text style={ styles.maxTemperature }>22°</Text>
+                </View>
+            </View>
+            <View style={ styles.containerDaysOfWeekRow}>
+              <Text style={ styles.dayOfWeekName}>Quarta-feira</Text>
+              <Image 
+                source={require("../../../assets/icons/weather/day/sun.png")} 
+                style={ styles.weatherIconDayOfWeek }
+                />
+                <View style={ styles.containerMinMaxRow }>
+                  <Text style={ styles.minTemperature }>19°/</Text>
+                  <Text style={ styles.maxTemperature }>22°</Text>
+                </View>
+            </View>
           </View>
         </View>
-      </View>
-    </LinearGradient>
+      </ImageBackground>
     );
   }
 }
@@ -143,7 +140,7 @@ const styles = StyleSheet.create({
   },
   containerDaysOfWeek:  {
     flex: 1,
-    width: 350
+    width: 350,
   },
   containerTemperature:  {
     flex: 1,
@@ -156,10 +153,17 @@ const styles = StyleSheet.create({
   containerTemperatureRow: {
     flexDirection: 'row'
   },
+  containerTemperaturesRow: {
+    flexDirection: 'row',
+    marginLeft: 20,
+    marginRight: 20,
+    marginBottom: 10,
+    marginTop: 30
+  },
   containerDaysOfWeekRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: 15,
+    paddingTop: 20,
   },
   containerMinMaxRow: {
     flexDirection: 'row'
@@ -231,7 +235,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: 'Montserrat-Bold',
     marginLeft: 5
-  }
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
 });
 
 export default Location 
