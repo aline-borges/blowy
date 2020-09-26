@@ -3,50 +3,59 @@ import { StyleSheet, Text, TextInput, View, Image, ActivityIndicator, TouchableO
 import { LinearGradient } from 'expo-linear-gradient';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { AppLoading } from 'expo';
+import { useFonts } from 'expo-font';
+import { Feather } from '@expo/vector-icons';
 
 import OpenWeather from '../../services/apis/openWeather/index';
 
 const Search = ({ navigation }) => {
   const [value, onChangeText] = useState('');
-
   const handleSubmit = () => OpenWeather(value)
 
-  return (
-    <LinearGradient 
-        colors={['#2EA6CD', '#285292']}
-        style={ styles.container }
-        >      
-      <View style={ styles.container }>
-        <Image 
-        source={require("../../../assets/icons/research/map.png")} 
-        style={ styles.logo }
-        />
-        <Text style={ styles.title }>Digite a cidade, o CEP ou o aeroporto</Text>
-        <View style={ styles.containerRow }>
-          <Image 
-          source={require("../../../assets/icons/research/search.png")}
-          style={ styles.searchLogo }
-          />
-          <TextInput 
-          style={ styles.input }
-          autoCompleteType ='street-address'
-          placeholder="Digite o local"
-          placeholderTextColor="#fefefe77"
-          onChangeText={text => onChangeText(text)}
-          onSubmitEditing={handleSubmit}
-          value={value}
-           />
+  let [fontsLoaded] = useFonts({
+    'Montserrat-Thin': require('../../../assets/fonts/montserrat/Montserrat-Thin.ttf'),
+    'Montserrat-ExtraLight': require('../../../assets/fonts/montserrat/Montserrat-ExtraLight.ttf'),
+    'Montserrat-Regular': require('../../../assets/fonts/montserrat/Montserrat-Regular.ttf'),
+    'Montserrat-Medium': require('../../../assets/fonts/montserrat/Montserrat-Medium.ttf'),
+    'Montserrat-Bold': require('../../../assets/fonts/montserrat/Montserrat-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  } 
+  else {
+    return (
+      <LinearGradient 
+          colors={['#2EA6CD', '#285292']}
+          style={ styles.container }
+          >      
+        <View style={ styles.container }>
+          <Feather name="map-pin" style={ styles.mapIcon } />
+          <Text style={ styles.title }>Digite a cidade, o CEP ou o aeroporto</Text>
+          <View style={ styles.containerRow }>
+            <Feather name="search" style={ styles.searchIcon } />
+            <TextInput 
+            style={ styles.input }
+            autoCompleteType ='street-address'
+            placeholder="Digite o local"
+            placeholderTextColor="#fefefe77"
+            onChangeText={text => onChangeText(text)}
+            onSubmitEditing={handleSubmit}
+            value={value}
+             />
+          </View>
+          <TouchableOpacity 
+          style={ styles.button }
+          onPress={handleSubmit}
+          onPress={() => navigation.navigate('Location')}
+          >
+            <Text style={ styles.textButton}>Buscar</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity 
-        style={ styles.button }
-        onPress={handleSubmit}
-        onPress={() => navigation.navigate('Location')}
-        >
-          <Text style={ styles.textButton}>Buscar</Text>
-        </TouchableOpacity>
-      </View>
-    </LinearGradient>
-  );
+      </LinearGradient>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -60,15 +69,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10
   },
-  logo: {
-    resizeMode: "cover",
-    height: 50,
-    width: 50,
-    marginBottom: 10
-  },
   title: {
     color: '#fefefe',
-    fontSize: 20
+    fontSize: 16,
+    fontFamily: 'Montserrat-Medium'
   },
   input: {
     height: 40,
@@ -79,14 +83,20 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderRightWidth: 0,
     borderTopWidth: 0,
-    fontSize: 20
+    fontSize: 16,
+    fontFamily: 'Montserrat-Regular'
   },
-  searchLogo: {
-    resizeMode: "cover",
-    height: 20,
-    width: 20,
+  searchIcon: {
+    fontSize: 16,
     marginTop: 10,
-    marginRight: 10
+    marginRight: 10,
+    color: '#fefefe'
+  },
+  mapIcon: {
+    fontSize: 36,
+    marginBottom: 10,
+    marginRight: 10,
+    color: '#fefefe'
   },
   button: {
     backgroundColor: '#E01972',
@@ -95,10 +105,10 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   textButton: {
+    fontFamily: 'Montserrat-Regular',
     color: '#fefefe',
     textAlign: 'center',
-    fontSize: 18,
-    fontWeight: '600'
+    fontSize: 16,
   }
 });
 
