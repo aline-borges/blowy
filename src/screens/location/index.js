@@ -1,7 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, Image, SafeAreaView, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
-import { AppLoading } from 'expo';
-import { StatusBar } from 'expo-status-bar';  
+import { StyleSheet, Text, TextInput, View, Image, ActivityIndicator, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const Location = () => {  
@@ -11,11 +9,10 @@ const Location = () => {
     style={ styles.container }
     >      
     <View style={ styles.container } han>
-      <StatusBar style="light-content" /> 
-        <Text style={ styles.city } >Rio de Janeiro</Text>
-        <Text style={ styles.temperature }>20°</Text>
-        <Text style={ styles.minMaxTemperature }>19°/22°</Text>
-        <Text style={ styles.dayOfWeek }>Sexta-Feira</Text>
+      <Text style={ styles.city } >Rio de Janeiro</Text>
+      <Text style={ styles.temperature }>20°</Text>
+      <Text style={ styles.minMaxTemperature }>19°/22°</Text>
+      <Text style={ styles.dayOfWeek }>Sexta-Feira</Text>
     </View>
   </LinearGradient>
   );

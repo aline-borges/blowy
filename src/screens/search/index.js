@@ -1,17 +1,22 @@
-import * as React from 'react';
-import { StyleSheet, Text, TextInput, View, Image, SafeAreaView, FlatList, ActivityIndicator, } from 'react-native';
-import { AppLoading } from 'expo';
-import { StatusBar } from 'expo-status-bar';  
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const Search = () => {
+import OpenWeather from '../../services/apis/openWeather/index';
+
+const Search = ({ navegation }) => {
+  const [place, setPlace] = useState("");
+
+  const handleSubmit = () => OpenWeather(place)
+
   return (
     <LinearGradient 
         colors={['#2EA6CD', '#285292']}
         style={ styles.container }
         >      
-      <View style={ styles.container } onSubmit={(e) => handleSubmit(e)}>
-      <StatusBar style="light-content" />  
+      <View style={ styles.container }>
         <Image 
         source={require("../../../assets/icons/research/map.png")} 
         style={ styles.logo }
@@ -25,10 +30,19 @@ const Search = () => {
           <TextInput 
           style={ styles.input }
           autoCompleteType ='street-address'
-          placeholder="Buscar"
+          placeholder="Digite o local"
           placeholderTextColor="#fefefe77"
+          onChangeText={place => setPlace(place)}
+          onSubmitEditing={handleSubmit}
            />
         </View>
+        <TouchableOpacity 
+        style={ styles.button }
+        onPress={handleSubmit}
+        onPress={() => navigation.navigate('Location')}
+        >
+          <Text style={ styles.textButton}>Buscar</Text>
+        </TouchableOpacity>
       </View>
     </LinearGradient>
   );
@@ -42,7 +56,8 @@ const styles = StyleSheet.create({
   },
   containerRow: {
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: 10,
+    marginBottom: 10
   },
   logo: {
     resizeMode: "cover",
@@ -71,6 +86,18 @@ const styles = StyleSheet.create({
     width: 20,
     marginTop: 10,
     marginRight: 10
+  },
+  button: {
+    backgroundColor: '#E01972',
+    width: 180,
+    padding: 10,
+    marginTop: 10
+  },
+  textButton: {
+    color: '#fefefe',
+    textAlign: 'center',
+    fontSize: 18,
+    fontWeight: '600'
   }
 });
 
