@@ -31,7 +31,10 @@ const Search = ({ navigation }) => {
           style={ styles.container }
           >      
         <View style={ styles.container }>
-          <Feather name="map-pin" style={ styles.mapIcon } />
+          <Image 
+          source={require('../../../assets/icons/research/map.png')}
+          style={ styles.mapIcon }
+          />
           <Text style={ styles.title }>Digite a cidade, o CEP ou o aeroporto</Text>
           <View style={ styles.containerRow }>
             <Feather name="search" style={ styles.searchIcon } />
@@ -67,36 +70,35 @@ const styles = StyleSheet.create({
   containerRow: {
     flexDirection: 'row',
     marginTop: 10,
-    marginBottom: 10
-  },
-  title: {
-    color: '#fefefe',
-    fontSize: 16,
-    fontFamily: 'Montserrat-Medium'
-  },
-  input: {
-    height: 40,
-    width: 250,
-    color: '#fefefe',
+    marginBottom: 10,
     borderColor: '#fefefe', 
     borderWidth: 1,
     borderLeftWidth: 0,
     borderRightWidth: 0,
     borderTopWidth: 0,
-    fontSize: 16,
+  },
+  title: {
+    color: '#fefefe',
+    fontSize: 18,
+    fontFamily: 'Montserrat-Medium',
+    marginBottom: 5
+  },
+  input: {
+    height: 40,
+    width: 280,
+    color: '#fefefe',
+    fontSize: 18,
     fontFamily: 'Montserrat-Regular'
   },
   searchIcon: {
-    fontSize: 16,
+    fontSize: 18,
     marginTop: 10,
-    marginRight: 10,
+    marginRight: 20,
     color: '#fefefe'
   },
   mapIcon: {
-    fontSize: 36,
-    marginBottom: 10,
+    marginBottom: 20,
     marginRight: 10,
-    color: '#fefefe'
   },
   button: {
     backgroundColor: '#E01972',
