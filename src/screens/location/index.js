@@ -71,11 +71,28 @@ const Location = ({ route }) => {
     max: Math.round(cityData.data.main.temp_max)
   }
 
+  const iconCodeNow = cityData.data2.hourly[0].weather[0].icon;
+  const iconCodeOneHourLater = cityData.data2.hourly[1].weather[0].icon;
+  const iconCodeTwoHoursLater = cityData.data2.hourly[2].weather[0].icon;
+  const iconCodeThreeHoursLater = cityData.data2.hourly[3].weather[0].icon;
+
   const temperatureListDay = {
-    now: Math.round(cityData.data2.hourly[0].temp),
-    OneHourLater: Math.round(cityData.data2.hourly[1].temp),
-    TwoHoursLater: Math.round(cityData.data2.hourly[2].temp),
-    ThreeHoursLater: Math.round(cityData.data2.hourly[3].temp)
+    now: {
+      temperature: Math.round(cityData.data2.hourly[0].temp),
+      icon: `https://openweathermap.org/img/wn/${iconCodeNow}@2x.png`
+    },
+    OneHourLater: {
+      temperature: Math.round(cityData.data2.hourly[1].temp),
+      icon: `https://openweathermap.org/img/wn/${iconCodeOneHourLater}@2x.png` 
+    },
+    TwoHoursLater:{
+      temperature: Math.round(cityData.data2.hourly[2].temp),
+      icon: `https://openweathermap.org/img/wn/${iconCodeTwoHoursLater}@2x.png` 
+    }, 
+    ThreeHoursLater: {
+      temperature: Math.round(cityData.data2.hourly[3].temp),
+      icon: `https://openweathermap.org/img/wn/${iconCodeThreeHoursLater}@2x.png` 
+    }
   }
 
   const hourList = {
@@ -84,44 +101,43 @@ const Location = ({ route }) => {
     ThreeHoursLater: threeHoursLater
   }
 
-  const iconCode = cityData.data2.daily[0].weather.icon;
+  const iconCodeToday = cityData.data2.daily[0].weather[0].icon;
+  const iconCodeOneMoreDay = cityData.data2.daily[1].weather[0].icon;
+  const iconCodeTwoMoreDays = cityData.data2.daily[2].weather[0].icon;
+  const iconCodeThreeMoreDays = cityData.data2.daily[3].weather[0].icon;
+  const iconCodeFourMoreDays = cityData.data2.daily[4].weather[0].icon;
+  const iconCodeFiveMoreDays = cityData.data2.daily[5].weather[0].icon;
 
   const minMaxTemperatureListOfWeek = {
     today: {
       min: Math.round(cityData.data2.daily[0].temp.min),
       max: Math.round(cityData.data2.daily[0].temp.max),
-      iconCode: cityData.data2.daily[0].weather[0].icon,
-      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+      icon: `https://openweathermap.org/img/wn/${iconCodeToday}@2x.png`
     },
     oneMoreDay: {
       min: Math.round(cityData.data2.daily[1].temp.min),
       max: Math.round(cityData.data2.daily[1].temp.max),
-      iconCode: cityData.data2.daily[1].weather[0].icon,
-      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+      icon: `https://openweathermap.org/img/wn/${iconCodeOneMoreDay}@2x.png`
     },
     twoMoreDays: {
       min: Math.round(cityData.data2.daily[2].temp.min),
       max: Math.round(cityData.data2.daily[2].temp.max),
-      iconCode: cityData.data2.daily[2].weather[0].icon,
-      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+      icon: `https://openweathermap.org/img/wn/${iconCodeTwoMoreDays}@2x.png`
     },
     threeMoreDays: {
       min: Math.round(cityData.data2.daily[3].temp.min),
       max: Math.round(cityData.data2.daily[3].temp.max),
-      iconCode: cityData.data2.daily[3].weather[0].icon,
-      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+      icon: `https://openweathermap.org/img/wn/${iconCodeThreeMoreDays}@2x.png`
     },
     fourMoreDays: {
       min: Math.round(cityData.data2.daily[4].temp.min),
       max: Math.round(cityData.data2.daily[4].temp.max),
-      iconCode: cityData.data2.daily[4].weather[0].icon,
-      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+      icon: `https://openweathermap.org/img/wn/${iconCodeFourMoreDays}@2x.png`
     },
     fiveMoreDays: {
       min: Math.round(cityData.data2.daily[5].temp.min),
       max: Math.round(cityData.data2.daily[5].temp.max),
-      iconCode: cityData.data2.daily[5].weather[0].icon,
-      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+      icon: `https://openweathermap.org/img/wn/${iconCodeFiveMoreDays}@2x.png`
     }
   }
 
@@ -144,41 +160,47 @@ const Location = ({ route }) => {
               <View style={styles.containerTemperatureRow}>
                 <Image
                   source={{
-                    uri: `https://openweathermap.org/img/wn/01d@2x.png`,
+                    uri: temperatureListDay.now.icon,
                   }}
                   style={styles.weatherIcon}
                 />
-                <Text style={styles.temperatureNow}>{temperatureListDay.now}°</Text>
+                <Text style={styles.temperatureNow}>{temperatureListDay.now.temperature}°</Text>
               </View>
             </View>
             <View style={styles.containerTemperature}>
               <Text style={styles.temperatureRestOfTheDayTitle}>{hourList.OneHourLater}</Text>
               <View style={styles.containerTemperatureRow}>
                 <Image
-                  source={require('../../../assets/icons/weather/day/rain.png')}
+                  source={{
+                    uri: temperatureListDay.OneHourLater.icon,
+                  }}
                   style={styles.weatherIcon}
                 />
-                <Text style={styles.temperatureRestOfTheDay}>{temperatureListDay.OneHourLater}°</Text>
+                <Text style={styles.temperatureRestOfTheDay}>{temperatureListDay.OneHourLater.temperature}°</Text>
               </View>
             </View>
             <View style={styles.containerTemperature}>
               <Text style={styles.temperatureRestOfTheDayTitle}>{hourList.TwoHoursLater}</Text>
               <View style={styles.containerTemperatureRow}>
                 <Image
-                  source={require('../../../assets/icons/weather/day/rain.png')}
+                  source={{
+                    uri: temperatureListDay.TwoHoursLater.icon,
+                  }}
                   style={styles.weatherIcon}
                 />
-                <Text style={styles.temperatureRestOfTheDay}>{temperatureListDay.TwoHoursLater}°</Text>
+                <Text style={styles.temperatureRestOfTheDay}>{temperatureListDay.TwoHoursLater.temperature}°</Text>
               </View>
             </View>
             <View style={styles.containerTemperature}>
               <Text style={styles.temperatureRestOfTheDayTitle}>{hourList.ThreeHoursLater}</Text>
               <View style={styles.containerTemperatureRow}>
                 <Image
-                  source={require('../../../assets/icons/weather/day/rain.png')}
+                  source={{
+                    uri: temperatureListDay.ThreeHoursLater.icon,
+                  }}
                   style={styles.weatherIcon}
                 />
-                <Text style={styles.temperatureRestOfTheDay}>{temperatureListDay.ThreeHoursLater}°</Text>
+                <Text style={styles.temperatureRestOfTheDay}>{temperatureListDay.ThreeHoursLater.temperature}°</Text>
               </View>
             </View>
           </View>
@@ -336,8 +358,8 @@ const styles = StyleSheet.create({
     height: 30,
   },
   weatherIconDayOfWeek: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
   },
   temperatureNowTitle: {
     color: '#fefefe',
