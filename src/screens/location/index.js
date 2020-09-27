@@ -90,37 +90,37 @@ const Location = ({ route }) => {
     today: {
       min: Math.round(cityData.data2.daily[0].temp.min),
       max: Math.round(cityData.data2.daily[0].temp.max),
-      iconCode: cityData.data2.daily[0].weather.icon,
+      iconCode: cityData.data2.daily[0].weather[0].icon,
       icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     oneMoreDay: {
       min: Math.round(cityData.data2.daily[1].temp.min),
       max: Math.round(cityData.data2.daily[1].temp.max),
-      iconCode: cityData.data2.daily[1].weather.icon,
+      iconCode: cityData.data2.daily[1].weather[0].icon,
       icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     twoMoreDays: {
       min: Math.round(cityData.data2.daily[2].temp.min),
       max: Math.round(cityData.data2.daily[2].temp.max),
-      iconCode: cityData.data2.daily[2].weather.icon,
+      iconCode: cityData.data2.daily[2].weather[0].icon,
       icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     threeMoreDays: {
       min: Math.round(cityData.data2.daily[3].temp.min),
       max: Math.round(cityData.data2.daily[3].temp.max),
-      iconCode: cityData.data2.daily[3].weather.icon,
+      iconCode: cityData.data2.daily[3].weather[0].icon,
       icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     fourMoreDays: {
       min: Math.round(cityData.data2.daily[4].temp.min),
       max: Math.round(cityData.data2.daily[4].temp.max),
-      iconCode: cityData.data2.daily[4].weather.icon,
+      iconCode: cityData.data2.daily[4].weather[0].icon,
       icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     fiveMoreDays: {
       min: Math.round(cityData.data2.daily[5].temp.min),
       max: Math.round(cityData.data2.daily[5].temp.max),
-      iconCode: cityData.data2.daily[5].weather.icon,
+      iconCode: cityData.data2.daily[5].weather[0].icon,
       icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     }
   }
