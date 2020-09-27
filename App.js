@@ -1,27 +1,70 @@
-import * as React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView } from 'react-native';
-import { StatusBar } from 'expo-status-bar';  
-import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Feather } from '@expo/vector-icons';
+import { AppLoading } from 'expo';
+import { useFonts } from 'expo-font';
+import { StatusBar } from 'expo-status-bar';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import Search from './src/screens/search/index';
-import Location from './src/screens/location/index';
-import LocationList from './src/screens/locationsList/index';
+import Search from './src/screens/Search';
+import Location from './src/screens/Location';
+import Locations from './src/screens/Locations';
 
 const Stack = createStackNavigator();
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="LocationList">
-        <Stack.Screen name="Search" component={Search} />
-        <Stack.Screen name="Location" component={Location} />
-        <Stack.Screen name="LocationList" component={LocationList} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+  const [fontsLoaded] = useFonts({
+    'Montserrat-Thin': require('./assets/fonts/montserrat/Montserrat-Thin.ttf'),
+    'Montserrat-ExtraLight': require('./assets/fonts/montserrat/Montserrat-ExtraLight.ttf'),
+    'Montserrat-Regular': require('./assets/fonts/montserrat/Montserrat-Regular.ttf'),
+    'Montserrat-Medium': require('./assets/fonts/montserrat/Montserrat-Medium.ttf'),
+    'Montserrat-Bold': require('./assets/fonts/montserrat/Montserrat-Bold.ttf'),
+  });
 
-export default App
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
+
+  return (
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Locations">
+          <Stack.Screen
+            name="Locations"
+            component={Locations}
+            options={{
+              header: () => null 
+            }}
+          />
+          <Stack.Screen
+            name="Search"
+            component={Search}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#2EA6CD',
+                height: 70,
+              },
+              headerTintColor: '#FFF'
+            }}
+          />
+          <Stack.Screen
+            name="Location"
+            component={Location}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: 'transparent',
+                height: 70,
+              },
+              headerTintColor: '#FFFFFF'
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <StatusBar style="light" />
+    </SafeAreaProvider>
+  );
+};
+
+export default App;

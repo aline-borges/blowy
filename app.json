@@ -22,7 +22,7 @@
       "barStyle": "dark-content"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icons/favicon/favicon.png"
     }
   }
 }
