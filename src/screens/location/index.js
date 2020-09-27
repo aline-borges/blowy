@@ -84,35 +84,45 @@ const Location = ({ route }) => {
     ThreeHoursLater: threeHoursLater
   }
 
+  const iconCode = cityData.data2.daily[0].weather.icon;
+
   const minMaxTemperatureListOfWeek = {
     today: {
       min: Math.round(cityData.data2.daily[0].temp.min),
       max: Math.round(cityData.data2.daily[0].temp.max),
+      iconCode: cityData.data2.daily[0].weather.icon,
+      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     oneMoreDay: {
       min: Math.round(cityData.data2.daily[1].temp.min),
       max: Math.round(cityData.data2.daily[1].temp.max),
+      iconCode: cityData.data2.daily[1].weather.icon,
+      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     twoMoreDays: {
       min: Math.round(cityData.data2.daily[2].temp.min),
       max: Math.round(cityData.data2.daily[2].temp.max),
+      iconCode: cityData.data2.daily[2].weather.icon,
+      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     threeMoreDays: {
       min: Math.round(cityData.data2.daily[3].temp.min),
       max: Math.round(cityData.data2.daily[3].temp.max),
+      iconCode: cityData.data2.daily[3].weather.icon,
+      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     fourMoreDays: {
       min: Math.round(cityData.data2.daily[4].temp.min),
       max: Math.round(cityData.data2.daily[4].temp.max),
+      iconCode: cityData.data2.daily[4].weather.icon,
+      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     },
     fiveMoreDays: {
       min: Math.round(cityData.data2.daily[5].temp.min),
       max: Math.round(cityData.data2.daily[5].temp.max),
+      iconCode: cityData.data2.daily[5].weather.icon,
+      icon: `https://openweathermap.org/img/wn/${iconCode}@2x.png`
     }
-  }
-
-  const iconsList = {
-    sun: 'http://openweathermap.org/img/wn/01d@2x.png',
   }
 
   return (
@@ -133,7 +143,9 @@ const Location = ({ route }) => {
               <Text style={styles.temperatureNowTitle}>Agora</Text>
               <View style={styles.containerTemperatureRow}>
                 <Image
-                  source={require('../../../assets/icons/weather/day/rain.png')}
+                  source={{
+                    uri: `https://openweathermap.org/img/wn/01d@2x.png`,
+                  }}
                   style={styles.weatherIcon}
                 />
                 <Text style={styles.temperatureNow}>{temperatureListDay.now}°</Text>
@@ -174,7 +186,9 @@ const Location = ({ route }) => {
             <View style={styles.containerDaysOfWeekRow}>
               <Text style={styles.dayOfWeekName}>{week[date.getDay()+1]}</Text>
               <Image
-                source={require('../../../assets/icons/weather/day/sun.png')}
+                source={{
+                  uri: minMaxTemperatureListOfWeek.oneMoreDay.icon,
+                }}
                 style={styles.weatherIconDayOfWeek}
               />
               <View style={styles.containerMinMaxRow}>
@@ -185,7 +199,9 @@ const Location = ({ route }) => {
             <View style={styles.containerDaysOfWeekRow}>
               <Text style={styles.dayOfWeekName}>{week[date.getDay()+2]}</Text>
               <Image
-                source={require('../../../assets/icons/weather/day/sun.png')}
+                source={{
+                  uri: minMaxTemperatureListOfWeek.twoMoreDays.icon,
+                }}
                 style={styles.weatherIconDayOfWeek}
               />
               <View style={styles.containerMinMaxRow}>
@@ -196,7 +212,9 @@ const Location = ({ route }) => {
             <View style={styles.containerDaysOfWeekRow}>
               <Text style={styles.dayOfWeekName}>{week[date.getDay()+3]}</Text>
               <Image
-                source={require('../../../assets/icons/weather/day/sun.png')}
+                source={{
+                  uri: minMaxTemperatureListOfWeek.threeMoreDays.icon,
+                }}
                 style={styles.weatherIconDayOfWeek}
               />
               <View style={styles.containerMinMaxRow}>
@@ -207,7 +225,9 @@ const Location = ({ route }) => {
             <View style={styles.containerDaysOfWeekRow}>
               <Text style={styles.dayOfWeekName}>{week[date.getDay()+4]}</Text>
               <Image
-                source={require('../../../assets/icons/weather/day/sun.png')}
+                source={{
+                  uri: minMaxTemperatureListOfWeek.fourMoreDays.icon,
+                }}
                 style={styles.weatherIconDayOfWeek}
               />
               <View style={styles.containerMinMaxRow}>
@@ -218,7 +238,9 @@ const Location = ({ route }) => {
             <View style={styles.containerDaysOfWeekRow}>
               <Text style={styles.dayOfWeekName}>{week[date.getDay()+5]}</Text>
               <Image
-                source={require('../../../assets/icons/weather/day/sun.png')}
+                source={{
+                  uri: minMaxTemperatureListOfWeek.fiveMoreDays.icon,
+                }}
                 style={styles.weatherIconDayOfWeek}
               />
               <View style={styles.containerMinMaxRow}>
