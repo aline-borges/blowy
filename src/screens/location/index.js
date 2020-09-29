@@ -20,10 +20,9 @@ const Location = ({ route }) => {
   const timestampThreeHoursLater = new Date(cityData.data2.hourly[3].dt * 1000);
 
   const convertUTCDateToLocalDate = (hour) => {
-    const newDate = new Date(hour.getTime() - hour.getTimezoneOffset()*60*1000);
-    const gmt3 = newDate.getHours() - 3
+    const gmt3 = hour.getHours();
 
-    if(gmt3 < 10){return `0${gmt3}h`}else{return `${gmt3}h`} 
+    return gmt3;
   }
 
   const hourNow = convertUTCDateToLocalDate(timestampHourNow)
@@ -32,36 +31,33 @@ const Location = ({ route }) => {
   const threeHoursLater = convertUTCDateToLocalDate(timestampThreeHoursLater);
 
   const backgroundRandom = () => {
-    const daySunny = '../../../assets/images/weather/background/day/default.png',
-    dayCloudy = '../../../assets/images/weather/background/day/cloudy.png',
-    dayRain = '../../../assets/images/weather/background/day/rain.png',
-    dayThunder = '../../../assets/images/weather/background/day/thunder.png',
-    daySnow = '../../../assets/images/weather/background/day/snowfall.png',
-    nightSunny = '../../../assets/images/weather/background/night/default.png',
-    nightCloudy = '../../../assets/images/weather/background/night/cloudy.png',
-    nightRain = '../../../assets/images/weather/background/night/rain.png',
-    nightThunder = '../../../assets/images/weather/background/night/thunder.png',
-    nightSnow = '../../../assets/images/weather/background/night/snowfall.png',
-    sunset = '../../../assets/images/weather/background/sunset.png',
-    sunrise = '../../../assets/images/weather/background/sunrise.png',
-    weather = cityData.data2.daily[0].weather[0].main,
+    const weather = cityData.data.weather[0].main,
     time = hourNow;
     let background = ''
   
-    if((time >= 5) && (time < 18)){
-      if(weather === 'Clear') {return background = daySunny}
-      if(weather === 'Clouds') {return background = dayCloudy}
-      if(weather === 'Rain') {return background = dayRain}
-      if(weather === 'Thunderstorm') {return background = dayThunder}
-      if(weather === 'Snow') {return background = daySnow}
+    if((time >= 7) && (time < 16)){
+      if(weather === 'Clear') {return background = require('../../../assets/images/weather/background/day/default.png')}
+      if(weather === 'Clouds') { return background = require('../../../assets/images/weather/background/day/cloudy.png')}
+      if(weather === 'Rain') {return background = require('../../../assets/images/weather/background/day/rain.png')}
+      if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/day/thunder.png')}
+      if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/day/snowfall.png')}
+    }
+
+    if((time === 6)) {
+      return background = require('../../../assets/images/weather/background/sunrise.png');
+    }
+
+    if((time === 17)) {
+      return background = require('../../../assets/images/weather/background/sunset.png')
     }
   
-    if((time >= 18) && (time < 4)){
-      if(weather === 'Clear') {return background = nightSunny}
-      if(weather === 'Clouds') {return background = nightCloudy}
-      if(weather === 'Rain') {return background = nightRain}
-      if(weather === 'Thunderstorm') {return background = nightThunder}
-      if(weather === 'Snow') {return background = nightSnow}
+    if((time >= 18) || (time < 4)){
+      if(weather === 'Clear') {return background = require('../../../assets/images/weather/background/night/default.png')}
+      if(weather === 'Clouds') {return background = require('../../../assets/images/weather/background/night/cloudy.png')}
+      if(weather === 'Rain') {return background = require('../../../assets/images/weather/background/night/rain.png')}
+      if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/night/thunder.png')}
+      if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/night/snowfall.png')}
+
     }
   }
 
@@ -143,7 +139,7 @@ const Location = ({ route }) => {
 
   return (
     <ImageBackground
-      source={require(`../../../assets/images/weather/background/day/default.png`)}
+      source={backgroundRandom()}
       style={styles.image}>
       <ScrollView style={styles.container} contentContainerStyle={styles.content}>
         <SafeAreaView>
@@ -168,7 +164,7 @@ const Location = ({ route }) => {
               </View>
             </View>
             <View style={styles.containerTemperature}>
-              <Text style={styles.temperatureRestOfTheDayTitle}>{hourList.OneHourLater}</Text>
+              <Text style={styles.temperatureRestOfTheDayTitle}>{hourList.OneHourLater}h</Text>
               <View style={styles.containerTemperatureRow}>
                 <Image
                   source={{
@@ -180,7 +176,7 @@ const Location = ({ route }) => {
               </View>
             </View>
             <View style={styles.containerTemperature}>
-              <Text style={styles.temperatureRestOfTheDayTitle}>{hourList.TwoHoursLater}</Text>
+              <Text style={styles.temperatureRestOfTheDayTitle}>{hourList.TwoHoursLater}h</Text>
               <View style={styles.containerTemperatureRow}>
                 <Image
                   source={{
@@ -192,7 +188,7 @@ const Location = ({ route }) => {
               </View>
             </View>
             <View style={styles.containerTemperature}>
-              <Text style={styles.temperatureRestOfTheDayTitle}>{hourList.ThreeHoursLater}</Text>
+              <Text style={styles.temperatureRestOfTheDayTitle}>{hourList.ThreeHoursLater}h</Text>
               <View style={styles.containerTemperatureRow}>
                 <Image
                   source={{
@@ -287,7 +283,6 @@ const styles = StyleSheet.create({
   },
   containerDaysOfWeek: {
     flex: 1,
-    width: 350,
   },
   containerTemperature: {
     flex: 1,
@@ -309,17 +304,17 @@ const styles = StyleSheet.create({
   },
   containerDaysOfWeekRow: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingTop: 20,
+    justifyContent: 'space-around',
+    paddingTop: 12,
+    paddingBottom: 12,
   },
   containerMinMaxRow: {
     flexDirection: 'row',
   },
   containerRow: {
     flexDirection: 'row',
-    marginTop: 10,
-    marginBottom: 10,
-    marginLeft: 140,
+    justifyContent: 'center',
+    marginBottom: 10
   },
   city: {
     color: '#fefefe',
@@ -348,18 +343,16 @@ const styles = StyleSheet.create({
   },
   dayOfWeek: {
     color: '#fefefe77',
-    fontSize: 24,
+    fontSize: 18,
     letterSpacing: 20,
     fontFamily: 'Montserrat-Medium',
     textAlign: 'center'
   },
   weatherIcon: {
-    width: 30,
-    height: 30,
+    width: 30
   },
   weatherIconDayOfWeek: {
-    width: 35,
-    height: 35,
+    width: 35
   },
   temperatureNowTitle: {
     color: '#fefefe',
