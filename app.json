@@ -27,10 +27,6 @@
     "android": {
       "package": "com.unicarioca.blowy",
       "versionCode": 1
-    },
-    "plataforms": [
-      "ios",
-      "android"
-    ]
+    }
   }
 }
