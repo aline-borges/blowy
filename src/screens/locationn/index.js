@@ -18,6 +18,7 @@ const Location = ({ route }) => {
   const timestampTwoHoursLater = new Date(cityData.data2.hourly[2].dt * 1000);
   const timestampThreeHoursLater = new Date(cityData.data2.hourly[3].dt * 1000);
 
+  
   const nowDayUTC = new Date(cityData.data2.daily[0].dt * 1000);
   const oneMoreDayOfWeekUTC = new Date(cityData.data2.daily[1].dt * 1000);
   const twoMoreDaysOfWeekUTC = new Date(cityData.data2.daily[2].dt * 1000);
@@ -87,14 +88,15 @@ const Location = ({ route }) => {
       return background = require('../../../assets/images/weather/background/sunset.png')
     }
   
-    if((time >= 18) || (time < 4)){
+    if((time >= 18) || (time <= 5)){
       if(weather === 'Clear') {return background = require('../../../assets/images/weather/background/night/default.png')}
-      if(weather === 'Clouds') {return background = require('../../../assets/images/weather/background/night/cloudy.png')}
+      if(weather === 'Clouds') { return background = require('../../../assets/images/weather/background/night/cloudy.png')}
       if(weather === 'Rain') {return background = require('../../../assets/images/weather/background/night/rain.png')}
       if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/night/thunder.png')}
       if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/night/snowfall.png')}
 
     }
+
   }
 
   const temperatures = {

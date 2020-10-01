@@ -18,8 +18,9 @@
     "ios": {
       "supportsTablet": true
     },
-    "androidStatusBar": {
-      "barStyle": "dark-content"
+    "android": {
+      "package": "com.blowy.blowy",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/icons/favicon/favicon.png"
