@@ -11,7 +11,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Location = ({ route }) => {
   const { cityData } = route.params;
-  const week = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
   const date = new Date();
 
   const timestampHourNow = new Date(cityData.data2.hourly[0].dt * 1000);
@@ -19,11 +18,48 @@ const Location = ({ route }) => {
   const timestampTwoHoursLater = new Date(cityData.data2.hourly[2].dt * 1000);
   const timestampThreeHoursLater = new Date(cityData.data2.hourly[3].dt * 1000);
 
-  const convertUTCDateToLocalDate = (hour) => {
-    const gmt3 = hour.getHours();
+  const nowDayUTC = new Date(cityData.data2.daily[0].dt * 1000);
+  const oneMoreDayOfWeekUTC = new Date(cityData.data2.daily[1].dt * 1000);
+  const twoMoreDaysOfWeekUTC = new Date(cityData.data2.daily[2].dt * 1000);
+  const threeMoreDaysOfWeekUTC = new Date(cityData.data2.daily[3].dt * 1000);
+  const fourMoreDaysOfWeekUTC = new Date(cityData.data2.daily[4].dt * 1000);
+  const fiveMoreDaysOfWeekUTC = new Date(cityData.data2.daily[5].dt * 1000);
 
-    return gmt3;
+  const convertUTCDateToLocalDate = (hour) => {
+    const nowHour = hour.getHours();
+
+    return nowHour;
   }
+
+  const convertUTCDateToLocalDateDay = (day) => {
+    const convertDay = day.getDay();
+
+    return convertDay;
+  }
+
+  const convertNumberToNameOfWeek = (day) => {
+    if(day === 0) { return 'Domingo'}
+    if(day === 1) { return 'Segunda-Feira'}
+    if(day === 2) { return 'Terça-Feira'}
+    if(day === 3) { return 'Quarta-Feira'}
+    if(day === 4) { return 'Quinta-Feira'}
+    if(day === 5) { return 'Sexta-Feira'}
+    if(day === 6) { return 'Sábado'}
+  }
+
+  const nowDayConvertDay = convertUTCDateToLocalDateDay(nowDayUTC);
+  const oneMoreDayConvertDay = convertUTCDateToLocalDateDay(oneMoreDayOfWeekUTC);
+  const twoMoreDaysConvertDay = convertUTCDateToLocalDateDay(twoMoreDaysOfWeekUTC);
+  const threeMoreDaysConvertDay = convertUTCDateToLocalDateDay(threeMoreDaysOfWeekUTC);
+  const fourMoreDaysConvertDay = convertUTCDateToLocalDateDay(fourMoreDaysOfWeekUTC);
+  const fiveMoreDaysConvertDay = convertUTCDateToLocalDateDay(fiveMoreDaysOfWeekUTC);
+
+  const nowDay = convertNumberToNameOfWeek(nowDayConvertDay);
+  const oneMoreDayOfWeek = convertNumberToNameOfWeek(oneMoreDayConvertDay);
+  const twoMoreDaysOfWeek = convertNumberToNameOfWeek(twoMoreDaysConvertDay);
+  const threeMoreDaysOfWeek = convertNumberToNameOfWeek(threeMoreDaysConvertDay);
+  const fourMoreDaysOfWeek = convertNumberToNameOfWeek(fourMoreDaysConvertDay);
+  const fiveMoreDaysOfWeek = convertNumberToNameOfWeek(fiveMoreDaysConvertDay);
 
   const hourNow = convertUTCDateToLocalDate(timestampHourNow)
   const oneHourLater = convertUTCDateToLocalDate(timestampOneHourLater);
@@ -149,7 +185,7 @@ const Location = ({ route }) => {
             <Text style={styles.minTemperature}>{minMaxTemperatureListOfWeek.today.min}°/</Text>
             <Text style={styles.maxTemperature}>{minMaxTemperatureListOfWeek.today.max}°</Text>
           </View>
-          <Text style={styles.dayOfWeek}>{week[date.getDay()]}</Text>
+          <Text style={styles.dayOfWeek}>{nowDay}</Text>
           <View style={styles.containerTemperaturesRow}>
             <View style={styles.containerTemperature}>
               <Text style={styles.temperatureNowTitle}>Agora</Text>
@@ -202,7 +238,7 @@ const Location = ({ route }) => {
           </View>
           <View style={styles.containerDaysOfWeek}>
             <View style={styles.containerDaysOfWeekRow}>
-              <Text style={styles.dayOfWeekName}>{week[date.getDay()+1]}</Text>
+              <Text style={styles.dayOfWeekName}>{oneMoreDayOfWeek}</Text>
               <Image
                 source={{
                   uri: minMaxTemperatureListOfWeek.oneMoreDay.icon,
@@ -215,7 +251,7 @@ const Location = ({ route }) => {
               </View>
             </View>
             <View style={styles.containerDaysOfWeekRow}>
-              <Text style={styles.dayOfWeekName}>{week[date.getDay()+2]}</Text>
+              <Text style={styles.dayOfWeekName}>{twoMoreDaysOfWeek}</Text>
               <Image
                 source={{
                   uri: minMaxTemperatureListOfWeek.twoMoreDays.icon,
@@ -228,7 +264,7 @@ const Location = ({ route }) => {
               </View>
             </View>
             <View style={styles.containerDaysOfWeekRow}>
-              <Text style={styles.dayOfWeekName}>{week[date.getDay()+3]}</Text>
+              <Text style={styles.dayOfWeekName}>{threeMoreDaysOfWeek}</Text>
               <Image
                 source={{
                   uri: minMaxTemperatureListOfWeek.threeMoreDays.icon,
@@ -241,7 +277,7 @@ const Location = ({ route }) => {
               </View>
             </View>
             <View style={styles.containerDaysOfWeekRow}>
-              <Text style={styles.dayOfWeekName}>{week[date.getDay()+4]}</Text>
+              <Text style={styles.dayOfWeekName}>{fourMoreDaysOfWeek}</Text>
               <Image
                 source={{
                   uri: minMaxTemperatureListOfWeek.fourMoreDays.icon,
@@ -254,7 +290,7 @@ const Location = ({ route }) => {
               </View>
             </View>
             <View style={styles.containerDaysOfWeekRow}>
-              <Text style={styles.dayOfWeekName}>{week[date.getDay()+5]}</Text>
+              <Text style={styles.dayOfWeekName}>{fiveMoreDaysOfWeek}</Text>
               <Image
                 source={{
                   uri: minMaxTemperatureListOfWeek.fiveMoreDays.icon,
