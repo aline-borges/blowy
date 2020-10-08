@@ -4,7 +4,6 @@ export const getOneCall = async (lat, lon) => {
   const data = await response.json()
 
   return data;
-  console.log(data);
 }
 
 const OpenWeather = async (city) => {
@@ -13,8 +12,7 @@ const OpenWeather = async (city) => {
   const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`)
   const data = await response.json();
 
-  return data
-  console.log(data);
+  return data;
 }
 
 export default OpenWeather

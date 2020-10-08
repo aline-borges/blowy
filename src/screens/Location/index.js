@@ -67,10 +67,20 @@ const Location = ({ route }) => {
   const twoHoursLater = convertUTCDateToLocalDate(timestampTwoHoursLater);
   const threeHoursLater = convertUTCDateToLocalDate(timestampThreeHoursLater);
 
+  const weather = cityData.data.weather[0].main;
+
+  const weatherTranslate = (weather) => {
+    if(weather === 'Clear') {return 'Céu Limpo'}
+    if(weather === 'Clouds') { return 'Nublado'}
+    if(weather === 'Rain') {return 'Chuva'}
+    if(weather === 'Thunderstorm') {return 'Tempestade'}
+    if(weather === 'Snow') {return 'Neve'}
+  }
+
   const backgroundRandom = () => {
     const weather = cityData.data.weather[0].main,
     time = hourNow;
-    let background = ''
+    let background = '';
   
     if((time >= 7) && (time < 16)){
       if(weather === 'Clear') {return background = require('../../../assets/images/weather/background/day/default.png')}
@@ -183,9 +193,12 @@ const Location = ({ route }) => {
         <SafeAreaView>
           <Text style={styles.city}>{cityData.data.name}</Text>
           <Text style={styles.temperature}>{temperatures.now}°</Text>
-          <View style={styles.containerRow}>
-            <Text style={styles.minTemperature}>{minMaxTemperatureListOfWeek.today.min}°/</Text>
-            <Text style={styles.maxTemperature}>{minMaxTemperatureListOfWeek.today.max}°</Text>
+          <View style={styles.content}>
+            <Text style={styles.weather}>{weatherTranslate(weather)}</Text>
+            <View style={styles.containerRow}>
+              <Text style={styles.minTemperature}>{minMaxTemperatureListOfWeek.today.min}°/</Text>
+              <Text style={styles.maxTemperature}>{minMaxTemperatureListOfWeek.today.max}°</Text>
+            </View>
           </View>
           <Text style={styles.dayOfWeek}>{nowDay}</Text>
           <View style={styles.containerTemperaturesRow}>
@@ -316,8 +329,15 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 55,
   },
+  weather: {
+    color: '#fefefe',
+    fontSize: 20,
+    fontFamily: 'Montserrat-Medium',
+    textAlign: 'center',
+    marginBottom: 10
+  },
   content: {
-    alignItems: 'center',
+    alignItems: 'center'
   },
   containerDaysOfWeek: {
     flex: 1,
@@ -423,11 +443,6 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     justifyContent: 'center',
-    position: 'absolute',
-    top: -70,
-    bottom: 0,
-    left: 0,
-    right: 0,
   },
 });
 
