@@ -11,8 +11,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Location = ({ route }) => {
   const { cityData } = route.params;
-  const date = new Date();
 
+  const timezone = cityData.data2.timezone;
+  const time = parseInt(new Date().toLocaleTimeString("pt-BR", {timeZone: timezone}).split(':')[0]);
   const timestampHourNow = new Date(cityData.data2.hourly[0].dt * 1000);
   const timestampOneHourLater = new Date(cityData.data2.hourly[1].dt * 1000);
   const timestampTwoHoursLater = new Date(cityData.data2.hourly[2].dt * 1000);
@@ -63,9 +64,9 @@ const Location = ({ route }) => {
   const fiveMoreDaysOfWeek = convertNumberToNameOfWeek(fiveMoreDaysConvertDay);
 
   const hourNow = convertUTCDateToLocalDate(timestampHourNow)
-  const oneHourLater = convertUTCDateToLocalDate(timestampOneHourLater);
-  const twoHoursLater = convertUTCDateToLocalDate(timestampTwoHoursLater);
-  const threeHoursLater = convertUTCDateToLocalDate(timestampThreeHoursLater);
+  const oneHourLater = time === "23" ? 0 : time + 1;
+  const twoHoursLater = time === "22" ? 0 : time + 2;
+  const threeHoursLater = time === "21" ? 0 : time + 3;
 
   const weather = cityData.data.weather[0].main;
 
@@ -78,13 +79,13 @@ const Location = ({ route }) => {
   }
 
   const backgroundRandom = () => {
-    const weather = cityData.data.weather[0].main,
-    time = hourNow;
+    const weather = cityData.data.weather[0].main;
+
     let background = '';
   
-    if((time >= 7) && (time < 16)){
+    if((time >= 7) && (time <= 16)){
       if(weather === 'Clear') {return background = require('../../../assets/images/weather/background/day/default.png')}
-      if(weather === 'Clouds') { return background = require('../../../assets/images/weather/background/day/cloudy.png')}
+      if(weather === 'Clouds') {return background = require('../../../assets/images/weather/background/day/cloudy.png')}
       if(weather === 'Rain') {return background = require('../../../assets/images/weather/background/day/rain.png')}
       if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/day/thunder.png')}
       if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/day/snowfall.png')}
