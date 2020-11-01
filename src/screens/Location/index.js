@@ -83,20 +83,12 @@ const Location = ({ route }) => {
 
     let background = '';
   
-    if((time >= 7) && (time <= 16)){
+    if((time >= 6) && (time <= 17)){
       if(weather === 'Clear') {return background = require('../../../assets/images/weather/background/day/default.png')}
       if(weather === 'Clouds') {return background = require('../../../assets/images/weather/background/day/cloudy.png')}
       if(weather === 'Rain') {return background = require('../../../assets/images/weather/background/day/rain.png')}
       if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/day/thunder.png')}
       if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/day/snowfall.png')}
-    }
-
-    if((time === 6)) {
-      return background = require('../../../assets/images/weather/background/sunrise.png');
-    }
-
-    if((time === 17)) {
-      return background = require('../../../assets/images/weather/background/sunset.png')
     }
   
     if((time >= 18) || (time <= 5)){
