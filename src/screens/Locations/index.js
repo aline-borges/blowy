@@ -1,42 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   ScrollView,
+  Alert,
+  Animated
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
-//import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
 
 const Locations = ({ navigation }) => {
+  const [locations, setLocations] = useState([]);
+  const [loading, setLoading] = useState(false);
+  
+  useEffect(() => {
+    getCities();
+  }, []);
+  
+  const getCities = async () => {
+    setLoading(true);
+    const cities = JSON.parse(await AsyncStorage.getItem("locationData")) || [];
+    const locations = [];
+    for (let city of cities) {
+      const response = await OpenWeather(city)
+      const response2 = await getOneCall(response.coord.lat, response.coord.lon);
+      const timezone = response2.timezone;
+      const time = new Date().toLocaleTimeString("pt-BR", {timeZone: timezone}).split(':');
+      const hour = `${time[0]}:${time[1]}`;
+      const datas = {data: response, data2: response2}
+      const location = {
+        data: response,
+        data2: response2,
+        hour: hour
+      }
+      locations.push(location);
+    }
+
+    setLocations(locations);
+    setLoading(false)
+  };
+
+  const renderLocation = location => {
+    return (
+      <Swipeable
+      key={location.data.id}
+      >
+        <TouchableOpacity  onPress={() => goToLocation(location)}>
+          <View style={styles.containerRow}>
+            <View style={styles.container}>
+              <Text style={styles.city}>{location.data.name}</Text>
+              <Text style={styles.time}>{location.hour}</Text>
+            </View>
+            <Text style={styles.temperature}>{parseInt(location.data.main.temp)}°</Text>
+          </View>
+        </TouchableOpacity>
+      </Swipeable>
+    );
+  };
+
+  const goToLocation = (data) => {
+    navigation.navigate('Location', { cityData: data })
+  };
+
   return (
     <LinearGradient colors={['#2EA6CD', '#285292']} style={styles.container}>
       <ScrollView style={styles.containerGeneral}>
         <SafeAreaView>
-          <View style={styles.containerRow}>
-            <View style={styles.container}>
-              <Text style={styles.city}>Rio de Janeiro</Text>
-              <Text style={styles.time}>04:42</Text>
-            </View>
-            <Text style={styles.temperature}>19°</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <View style={styles.container}>
-              <Text style={styles.city}>Tóquio</Text>
-              <Text style={styles.time}>16:42</Text>
-            </View>
-            <Text style={styles.temperature}>22°</Text>
-          </View>
-          <View style={styles.containerRow}>
-            <View style={styles.container}>
-              <Text style={styles.city}>Vancouver</Text>
-              <Text style={styles.time}>00:42</Text>
-            </View>
-            <Text style={styles.temperature}>16°</Text>
-          </View>
+          {locations.map(location => renderLocation(location))}
+          {loading && (
+            <Text>Carregando cidades</Text>
+          )}
           <TouchableOpacity onPress={() => navigation.navigate('Search')}>
             <Feather name="plus-circle" style={styles.icon} />
           </TouchableOpacity>
@@ -53,6 +95,15 @@ const styles = StyleSheet.create({
   containerGeneral: {
     flex: 1,
     paddingTop: 25,
+  },
+  rightActions: {
+    backgroundColor: '#FF3B30',
+    justifyContent: 'center',
+  },
+  actionText: {
+    fontSize: 16,
+    color: '#FEFEFE',
+    padding: 20
   },
   containerRow: {
     flexDirection: 'row',

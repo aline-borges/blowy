@@ -6,21 +6,34 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
 
 const Search = ({ navigation }) => {
   const [query, setQuery] = useState('');
 
+  const saveData = async (name) => {
+    const cities = JSON.parse(await AsyncStorage.getItem("locationData")) || [];
+    const cityName = name.toLowerCase()
+    if (cities.includes(cityName)) return;
+    const locations = [...cities, cityName];
+    AsyncStorage.setItem("locationData", JSON.stringify(locations));
+  }
+
   const handleSubmit = async () => {
     const data = await OpenWeather(query);
-    const data2 = await getOneCall(data.coord.lat, data.coord.lon);
-    const datas = {data: data, data2: data2}
-    navigation.navigate('Location', { cityData: datas });
+    if (data.cod === 200) {
+      const data2 = await getOneCall(data.coord.lat, data.coord.lon);
+      const datas = {data: data, data2: data2}
+      saveData(data.name);
+      navigation.navigate('Location', { cityData: datas });
+    }
   };
 
   return (

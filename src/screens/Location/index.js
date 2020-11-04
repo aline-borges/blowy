@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,7 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Location = ({ route }) => {
   const { cityData } = route.params;
-
+  
   const timezone = cityData.data2.timezone;
   const time = parseInt(new Date().toLocaleTimeString("pt-BR", {timeZone: timezone}).split(':')[0]);
   const timestampHourNow = new Date(cityData.data2.hourly[0].dt * 1000);
@@ -436,6 +436,11 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     justifyContent: 'center',
+    position: 'absolute',
+    top: -70,
+    bottom: 0,
+    left: 0,
+    right: 0
   },
 });
 
