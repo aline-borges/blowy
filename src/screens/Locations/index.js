@@ -6,15 +6,13 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  Animated
+  Animated,
+  LayoutAnimation
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import Swipeable from 'react-native-gesture-handler/Swipeable';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
 
@@ -49,22 +47,28 @@ const Locations = ({ navigation }) => {
     setLoading(false)
   };
 
+  const removeItem = async () => {
+    await AsyncStorage.removeItem("locationData"));
+  }
+
   const renderLocation = location => {
     return (
-      <Swipeable
+      <TouchableOpacity  
       key={location.data.id}
-      >
-        <TouchableOpacity  onPress={() => goToLocation(location)}>
-          <View style={styles.containerRow}>
-            <View style={styles.container}>
-              <Text style={styles.city}>{location.data.name}</Text>
-              <Text style={styles.time}>{location.hour}</Text>
-            </View>
-            <Text style={styles.temperature}>{parseInt(location.data.main.temp)}°</Text>
+      onPress={() => goToLocation(location)}>
+        <View style={styles.containerRow}>
+          <View style={styles.container}>
+            <Text style={styles.city}>{location.data.name}</Text>
+            <Text style={styles.time}>{location.hour}</Text>
           </View>
-        </TouchableOpacity>
-      </Swipeable>
-    );
+          <Text style={styles.temperature}>{parseInt(location.data.main.temp)}°</Text>
+          <TouchableOpacity
+          onPress={removeItem}>
+            <Feather name="trash-o" style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+  );
   };
 
   const goToLocation = (data) => {
