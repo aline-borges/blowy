@@ -47,9 +47,6 @@ const Locations = ({ navigation }) => {
     setLoading(false)
   };
 
-  const removeItem = async () => {
-    await AsyncStorage.removeItem("locationData"));
-  }
 
   const renderLocation = location => {
     return (
@@ -62,10 +59,6 @@ const Locations = ({ navigation }) => {
             <Text style={styles.time}>{location.hour}</Text>
           </View>
           <Text style={styles.temperature}>{parseInt(location.data.main.temp)}°</Text>
-          <TouchableOpacity
-          onPress={removeItem}>
-            <Feather name="trash-o" style={styles.icon} />
-          </TouchableOpacity>
         </View>
       </TouchableOpacity>
   );
