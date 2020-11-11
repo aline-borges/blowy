@@ -5,14 +5,13 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
-  Alert,
-  Animated,
-  LayoutAnimation
+  Alert
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Localization } from 'expo';
 
 import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
 
@@ -28,7 +27,7 @@ const Locations = ({ navigation }) => {
     setLoading(true);
     
     const cities = JSON.parse(await AsyncStorage.getItem("locationData")) || [];
-
+    
     const locations = [];
 
     for (let city of cities) {
@@ -47,11 +46,20 @@ const Locations = ({ navigation }) => {
     }
 
     setLocations(locations);
+    console.log(locations)
     setLoading(false)
   };
 
+  const removeItem = async (item) => {
+    const cities = JSON.parse(await AsyncStorage.getItem("locationData"));
 
-
+    const city = item.toLowerCase();
+    
+    const newCities = cities.filter(city => city.toLowerCase() !== item.toLowerCase());
+      
+    const locations = [...newCities];
+    AsyncStorage.setItem("locationData", JSON.stringify(locations));
+  }
 
   const renderLocation = location => {
     return (
@@ -63,7 +71,14 @@ const Locations = ({ navigation }) => {
             <Text style={styles.city}>{location.data.name}</Text>
             <Text style={styles.time}>{location.hour}</Text>
           </View>
-          <Text style={styles.temperature}>{parseInt(location.data.main.temp)}°</Text>
+          <Text style={styles.temperature}>
+            {parseInt(location.data.main.temp)}°
+            <TouchableOpacity
+            onPress={() => removeItem(location.data.name)}
+            >
+              <Feather name="trash-2" style={styles.trash} />
+            </TouchableOpacity>
+          </Text>
         </View>
       </TouchableOpacity>
   );
@@ -149,6 +164,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 20,
   },
+  trash: {
+    fontSize: 18,
+    color: '#fefefe',
+    marginLeft: 5,
+  }
 });
 
 export default Locations;
