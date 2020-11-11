@@ -26,8 +26,11 @@ const Locations = ({ navigation }) => {
   
   const getCities = async () => {
     setLoading(true);
+    
     const cities = JSON.parse(await AsyncStorage.getItem("locationData")) || [];
+
     const locations = [];
+
     for (let city of cities) {
       const response = await OpenWeather(city)
       const response2 = await getOneCall(response.coord.lat, response.coord.lon);
@@ -46,6 +49,8 @@ const Locations = ({ navigation }) => {
     setLocations(locations);
     setLoading(false)
   };
+
+
 
 
   const renderLocation = location => {
@@ -74,7 +79,7 @@ const Locations = ({ navigation }) => {
         <SafeAreaView>
           {locations.map(location => renderLocation(location))}
           {loading && (
-            <Text>Carregando cidades</Text>
+            <Text style={styles.loading}>Carregando..</Text>
           )}
           <TouchableOpacity onPress={() => navigation.navigate('Search')}>
             <Feather name="plus-circle" style={styles.icon} />
@@ -122,6 +127,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Montserrat-Regular',
     letterSpacing: 10,
     marginTop: 10,
+  },
+  loading: {
+    color: '#fefefe',
+    fontSize: 16,
+    fontFamily: 'Montserrat-Regular',
+    letterSpacing: 10,
+    textAlign: 'center',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   temperature: {
     color: '#fefefe',
