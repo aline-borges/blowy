@@ -60,7 +60,7 @@ const Locations = ({ navigation }) => {
     setSavedCities(newCities);
     setLocations(newLocations);
     AsyncStorage.setItem("locationData", JSON.stringify(newCities));
-    
+
     console.log(newCities);
     console.log(newLocations);
   };
@@ -101,7 +101,7 @@ const Locations = ({ navigation }) => {
           ) : (
             locations.map(location => renderLocation(location))
           )}
-          <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+          <TouchableOpacity onPress={() => navigation.navigate('Search', { currentLocations: locations, updateLocations: setLocations })}>
             <Feather name="plus-circle" style={styles.icon} />
           </TouchableOpacity>
         </SafeAreaView>

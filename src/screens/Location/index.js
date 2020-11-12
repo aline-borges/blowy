@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Location = ({ route }) => {
+const Location = ({ route, navigation }) => {
   const { cityData } = route.params;
   
   const timezone = cityData.data2.timezone;

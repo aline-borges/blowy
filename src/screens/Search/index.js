@@ -12,11 +12,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-community/async-storage';
+import { StackActions } from '@react-navigation/native';
 
 import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
 
-const Search = ({ navigation }) => {
+const Search = ({ navigation, route }) => {
   const [query, setQuery] = useState('');
+  const { currentLocations, updateLocations } = route.params;
 
   const saveData = async (name) => {
     const cities = JSON.parse(await AsyncStorage.getItem("locationData")) || [];
@@ -32,7 +34,20 @@ const Search = ({ navigation }) => {
       const data2 = await getOneCall(data.coord.lat, data.coord.lon);
       const datas = {data: data, data2: data2}
       saveData(data.name);
-      navigation.navigate('Locations', { cityData: datas });
+      const timezone = data2.timezone;
+      const time = new Date().toLocaleTimeString("pt-BR", {timeZone: timezone}).split(':');
+      const hour = `${time[0]}:${time[1]}`;
+      const location = {
+        data,
+        data2,
+        hour
+      }
+      updateLocations([...currentLocations, location]);
+      navigation.dispatch(
+        StackActions.replace('Location', {
+          cityData: datas,
+        })
+      );
     }
   };
 
