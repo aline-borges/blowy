@@ -18,6 +18,7 @@ import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
 const Locations = ({ navigation }) => {
   const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [savedCities, setSavedCities] = useState([]);
   
   useEffect(() => {
     getCities();
@@ -46,26 +47,29 @@ const Locations = ({ navigation }) => {
     }
 
     setLocations(locations);
-    console.log(locations)
+    setSavedCities(cities);
+
+    console.log(locations);
+    console.log(cities);
     setLoading(false)
   };
 
   const removeItem = async (item) => {
-    const cities = JSON.parse(await AsyncStorage.getItem("locationData"));
-
-    const city = item.toLowerCase();
+    const newCities = savedCities.filter(city => city.toLowerCase() !== item.toLowerCase());
+    const newLocations = locations.filter(location => location.data.name.toLowerCase() !== item.toLowerCase())
+    setSavedCities(newCities);
+    setLocations(newLocations);
+    AsyncStorage.setItem("locationData", JSON.stringify(newCities));
     
-    const newCities = cities.filter(city => city.toLowerCase() !== item.toLowerCase());
-      
-    const locations = [...newCities];
-    AsyncStorage.setItem("locationData", JSON.stringify(locations));
-  }
+    console.log(newCities);
+    console.log(newLocations);
+  };
 
   const renderLocation = location => {
     return (
       <TouchableOpacity  
-      key={location.data.id}
-      onPress={() => goToLocation(location)}>
+        key={location.data.id}
+        onPress={() => goToLocation(location)}>
         <View style={styles.containerRow}>
           <View style={styles.container}>
             <Text style={styles.city}>{location.data.name}</Text>
@@ -92,9 +96,10 @@ const Locations = ({ navigation }) => {
     <LinearGradient colors={['#2EA6CD', '#285292']} style={styles.container}>
       <ScrollView style={styles.containerGeneral}>
         <SafeAreaView>
-          {locations.map(location => renderLocation(location))}
-          {loading && (
+          {loading ? (
             <Text style={styles.loading}>Carregando..</Text>
+          ) : (
+            locations.map(location => renderLocation(location))
           )}
           <TouchableOpacity onPress={() => navigation.navigate('Search')}>
             <Feather name="plus-circle" style={styles.icon} />

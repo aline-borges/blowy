@@ -32,7 +32,7 @@ const Search = ({ navigation }) => {
       const data2 = await getOneCall(data.coord.lat, data.coord.lon);
       const datas = {data: data, data2: data2}
       saveData(data.name);
-      navigation.navigate('Location', { cityData: datas });
+      navigation.navigate('Locations', { cityData: datas });
     }
   };
 
