@@ -76,6 +76,7 @@ const Location = ({ route, navigation }) => {
     if(weather === 'Rain') {return 'Chuva'}
     if(weather === 'Thunderstorm') {return 'Tempestade'}
     if(weather === 'Snow') {return 'Neve'}
+    if(weather === 'Fog') {return 'Nevoeiro'}
   }
 
   const backgroundRandom = () => {
@@ -89,6 +90,7 @@ const Location = ({ route, navigation }) => {
       if(weather === 'Rain') {return background = require('../../../assets/images/weather/background/day/rain.png')}
       if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/day/thunder.png')}
       if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/day/snowfall.png')}
+      if(weather === 'Fog') {return background = require('../../../assets/images/weather/background/day/fog.png')}
     }
   
     if((time >= 18) || (time <= 5)){
@@ -97,6 +99,7 @@ const Location = ({ route, navigation }) => {
       if(weather === 'Rain') {return background = require('../../../assets/images/weather/background/night/rain.png')}
       if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/night/thunder.png')}
       if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/night/snowfall.png')}
+      if(weather === 'Fog') {return background = require('../../../assets/images/weather/background/night/fog.png')}
 
     }
 
