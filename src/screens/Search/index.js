@@ -28,8 +28,15 @@ const Search = ({ navigation, route }) => {
     AsyncStorage.setItem("locationData", JSON.stringify(locations));
   }
 
+  const notFoundAlert = () => 
+    Alert.alert(
+      "Cidade Não Encontrada",
+      "Infelizmente, a cidade digitada não consta em nossos dados. Por favor, tente novamente."
+    )
+
   const handleSubmit = async () => {
     const data = await OpenWeather(query);
+
     if (data.cod === 200) {
       const data2 = await getOneCall(data.coord.lat, data.coord.lon);
       const datas = {data: data, data2: data2}
@@ -48,6 +55,10 @@ const Search = ({ navigation, route }) => {
           cityData: datas,
         })
       );
+    }
+    
+    if(data.cod === '404') {
+      notFoundAlert();
     }
   };
 

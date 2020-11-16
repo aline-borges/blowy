@@ -77,6 +77,7 @@ const Location = ({ route, navigation }) => {
     if(weather === 'Thunderstorm') {return 'Tempestade'}
     if(weather === 'Snow') {return 'Neve'}
     if(weather === 'Fog') {return 'Nevoeiro'}
+    console.log(weather)
   }
 
   const backgroundRandom = () => {

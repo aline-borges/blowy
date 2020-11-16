@@ -13,6 +13,7 @@ import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { format, utcToZonedTime } from 'date-fns-tz';
 import { getHours, getMinutes } from 'date-fns';
+import 'date-time-format-timezone';
 
 import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
 
@@ -39,18 +40,14 @@ const Locations = ({ navigation }) => {
       const date = new Date(response2.current.dt * 1000 )
       const timezone = response2.timezone;
 
-      const newDate = utcToZonedTime(date, timezone)
+      const newDate = utcToZonedTime(date, timezone);
 
-      format(newDate, 'hh:mm', { timeZone: `${timezone}` })
-      const newHour = getHours(newDate)
+      const newHour = getHours(newDate, {locale: 'pt-BR'});
       const newMinutes = getMinutes(newDate);
-      let h = ``;
-      let m = ``;
-      
-      newHour < 10 ? h = `0${newHour}`: h = `${newHour}`;
-      newMinutes < 10 ? m = `0${newMinutes}`: m = `${newMinutes}`;
+      const h = newHour < 10 ? `0${newHour}` : newHour;
+      const m = newMinutes < 10 ? `0${newMinutes}` : newMinutes;
 
-      let newTime = `${h}:${m}`;
+      const newTime = `${h}:${m}`;
       
       const datas = {data: response, data2: response2}
       const location = {
@@ -72,9 +69,6 @@ const Locations = ({ navigation }) => {
     setSavedCities(newCities);
     setLocations(newLocations);
     AsyncStorage.setItem("locationData", JSON.stringify(newCities));
-
-    console.log(newCities);
-    console.log(newLocations);
   };
 
   const renderLocation = location => {
