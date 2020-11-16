@@ -12,7 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { format, utcToZonedTime } from 'date-fns-tz';
-import { getHours, getMinutes } from 'date-fns';
+import { getHours, getMinutes, es, formatRelative, subDays } from 'date-fns';
 import 'date-time-format-timezone';
 
 import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
@@ -41,13 +41,13 @@ const Locations = ({ navigation }) => {
       const timezone = response2.timezone;
 
       const newDate = utcToZonedTime(date, timezone);
-
-      const newHour = getHours(newDate, {locale: 'pt-BR'});
+      console.log(newDate)
+      const newHour = getHours(newDate);
       const newMinutes = getMinutes(newDate);
-      const h = newHour < 10 ? `0${newHour}` : newHour;
-      const m = newMinutes < 10 ? `0${newMinutes}` : newMinutes;
+      const hour = newHour < 10 ? `0${newHour}` : newHour;
+      const minutes = newMinutes < 10 ? `0${newMinutes}` : newMinutes;
 
-      const newTime = `${h}:${m}`;
+      const newTime = `${hour}:${minutes}`;
       
       const datas = {data: response, data2: response2}
       const location = {
