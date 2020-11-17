@@ -38,8 +38,12 @@ const Locations = ({ navigation }) => {
       
       const hour = date.getUTCHours();
       const minutes = date.getUTCMinutes();
+      let newHour = ``;
 
-      const time = `${hour}:${minutes}`;
+      hour < 10 ? newHour = `0${hour}` : newHour = `${hour}`
+      console.log(newHour)
+
+      const time = `${newHour}:${minutes}`;
       
       const datas = {data: response, data2: response2}
       const location = {
