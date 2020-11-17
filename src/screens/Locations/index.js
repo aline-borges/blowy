@@ -11,9 +11,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { format, utcToZonedTime } from 'date-fns-tz';
-import { getHours, getMinutes, es, formatRelative, subDays } from 'date-fns';
-import 'date-time-format-timezone';
 
 import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
 
@@ -37,23 +34,18 @@ const Locations = ({ navigation }) => {
       const response = await OpenWeather(city)
       const response2 = await getOneCall(response.coord.lat, response.coord.lon);
 
-      const date = new Date(response2.current.dt * 1000 )
-      const timezone = response2.timezone;
+      const date = new Date((response2.current.dt + response2.timezone_offset) * 1000)
+      
+      const hour = date.getUTCHours();
+      const minutes = date.getUTCMinutes();
 
-      const newDate = utcToZonedTime(date, timezone);
-      console.log(newDate)
-      const newHour = getHours(newDate);
-      const newMinutes = getMinutes(newDate);
-      const hour = newHour < 10 ? `0${newHour}` : newHour;
-      const minutes = newMinutes < 10 ? `0${newMinutes}` : newMinutes;
-
-      const newTime = `${hour}:${minutes}`;
+      const time = `${hour}:${minutes}`;
       
       const datas = {data: response, data2: response2}
       const location = {
         data: response,
         data2: response2,
-        hour: newTime
+        hour: time
       }
       locations.push(location);
     }
