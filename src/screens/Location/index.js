@@ -77,6 +77,15 @@ const Location = ({ route, navigation }) => {
     if(weather === 'Thunderstorm') {return 'Tempestade'}
     if(weather === 'Snow') {return 'Neve'}
     if(weather === 'Fog') {return 'Nevoeiro'}
+    if(weather === 'Squall') {return 'Rajadas de Vento'}
+    if(weather === 'Tornado') {return 'Tornado'}
+    if(weather === 'Drizzle') {return 'Chuvisco'}
+    if(weather === 'Smoke') {return 'Fumaça'}
+    if(weather === 'Haze') {return 'Tempo Seco'}
+    if(weather === 'Dust') {return 'Tempestade de Poeira'}
+    if(weather === 'Sand') {return 'Tempestade de Areia'}
+    if(weather === 'Ash') {return 'Cinzas Vulcânicas'}
+    if(weather === 'Mist') {return 'Nebuloso'}
     console.log(weather)
   }
 
@@ -87,8 +96,8 @@ const Location = ({ route, navigation }) => {
   
     if((time >= 6) && (time <= 17)){
       if(weather === 'Clear') {return background = require('../../../assets/images/weather/background/day/default.png')}
-      if(weather === 'Clouds') {return background = require('../../../assets/images/weather/background/day/cloudy.png')}
-      if(weather === 'Rain') {return background = require('../../../assets/images/weather/background/day/rain.png')}
+      if((weather === 'Clouds') || (weather === 'Mist')) {return background = require('../../../assets/images/weather/background/day/cloudy.png')}
+      if((weather === 'Rain') || (weather === 'Drizzle')) {return background = require('../../../assets/images/weather/background/day/rain.png')}
       if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/day/thunder.png')}
       if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/day/snowfall.png')}
       if(weather === 'Fog') {return background = require('../../../assets/images/weather/background/day/fog.png')}
@@ -96,12 +105,11 @@ const Location = ({ route, navigation }) => {
   
     if((time >= 18) || (time <= 5)){
       if(weather === 'Clear') {return background = require('../../../assets/images/weather/background/night/default.png')}
-      if(weather === 'Clouds') { return background = require('../../../assets/images/weather/background/night/cloudy.png')}
-      if(weather === 'Rain') {return background = require('../../../assets/images/weather/background/night/rain.png')}
+      if((weather === 'Clouds') || (weather === 'Mist')) { return background = require('../../../assets/images/weather/background/night/cloudy.png')}
+      if((weather === 'Rain') || (weather === 'Drizzle')) {return background = require('../../../assets/images/weather/background/night/rain.png')}
       if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/night/thunder.png')}
       if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/night/snowfall.png')}
       if(weather === 'Fog') {return background = require('../../../assets/images/weather/background/night/fog.png')}
-
     }
 
   }
