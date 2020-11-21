@@ -41,7 +41,6 @@ const Locations = ({ navigation }) => {
       let newHour = ``;
 
       hour < 10 ? newHour = `0${hour}` : newHour = `${hour}`
-      console.log(newHour)
 
       const time = `${newHour}:${minutes}`;
       

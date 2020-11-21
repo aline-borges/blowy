@@ -12,32 +12,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Location = ({ route, navigation }) => {
   const { cityData } = route.params;
   
-  const timezone = cityData.data2.timezone;
-  const time = parseInt(new Date().toLocaleTimeString("pt-BR", {timeZone: timezone}).split(':')[0]);
-  const timestampHourNow = new Date(cityData.data2.hourly[0].dt * 1000);
-  const timestampOneHourLater = new Date(cityData.data2.hourly[1].dt * 1000);
-  const timestampTwoHoursLater = new Date(cityData.data2.hourly[2].dt * 1000);
-  const timestampThreeHoursLater = new Date(cityData.data2.hourly[3].dt * 1000);
-
+  const date = new Date((cityData.data2.current.dt + cityData.data2.timezone_offset) * 1000)   
+  const time = date.getUTCHours();
   
-  const nowDayUTC = new Date(cityData.data2.daily[0].dt * 1000);
-  const oneMoreDayOfWeekUTC = new Date(cityData.data2.daily[1].dt * 1000);
-  const twoMoreDaysOfWeekUTC = new Date(cityData.data2.daily[2].dt * 1000);
-  const threeMoreDaysOfWeekUTC = new Date(cityData.data2.daily[3].dt * 1000);
-  const fourMoreDaysOfWeekUTC = new Date(cityData.data2.daily[4].dt * 1000);
-  const fiveMoreDaysOfWeekUTC = new Date(cityData.data2.daily[5].dt * 1000);
-
-  const convertUTCDateToLocalDate = (hour) => {
-    const nowHour = hour.getHours();
-
-    return nowHour;
-  }
-
-  const convertUTCDateToLocalDateDay = (day) => {
-    const convertDay = day.getDay();
-
-    return convertDay;
-  }
+  const nowDayUTC = new Date((cityData.data2.current.dt + cityData.data2.timezone_offset) * 1000);
+  const oneMoreDayOfWeekUTC = new Date((cityData.data2.daily[1].dt + cityData.data2.timezone_offset) * 1000);
+  const twoMoreDaysOfWeekUTC = new Date((cityData.data2.daily[2].dt + cityData.data2.timezone_offset) * 1000);
+  const threeMoreDaysOfWeekUTC = new Date((cityData.data2.daily[3].dt + cityData.data2.timezone_offset) * 1000);
+  const fourMoreDaysOfWeekUTC = new Date((cityData.data2.daily[4].dt + cityData.data2.timezone_offset) * 1000);
+  const fiveMoreDaysOfWeekUTC = new Date((cityData.data2.daily[5].dt + cityData.data2.timezone_offset) * 1000);
 
   const convertNumberToNameOfWeek = (day) => {
     if(day === 0) { return 'Domingo'}
@@ -49,21 +32,14 @@ const Location = ({ route, navigation }) => {
     if(day === 6) { return 'Sábado'}
   }
 
-  const nowDayConvertDay = convertUTCDateToLocalDateDay(nowDayUTC);
-  const oneMoreDayConvertDay = convertUTCDateToLocalDateDay(oneMoreDayOfWeekUTC);
-  const twoMoreDaysConvertDay = convertUTCDateToLocalDateDay(twoMoreDaysOfWeekUTC);
-  const threeMoreDaysConvertDay = convertUTCDateToLocalDateDay(threeMoreDaysOfWeekUTC);
-  const fourMoreDaysConvertDay = convertUTCDateToLocalDateDay(fourMoreDaysOfWeekUTC);
-  const fiveMoreDaysConvertDay = convertUTCDateToLocalDateDay(fiveMoreDaysOfWeekUTC);
+  const nowDay = convertNumberToNameOfWeek(nowDayUTC.getUTCDay());
+  const oneMoreDayOfWeek = convertNumberToNameOfWeek(oneMoreDayOfWeekUTC.getUTCDay());
+  const twoMoreDaysOfWeek = convertNumberToNameOfWeek(twoMoreDaysOfWeekUTC.getUTCDay());
+  const threeMoreDaysOfWeek = convertNumberToNameOfWeek(threeMoreDaysOfWeekUTC.getUTCDay());
+  const fourMoreDaysOfWeek = convertNumberToNameOfWeek(fourMoreDaysOfWeekUTC.getUTCDay());
+  const fiveMoreDaysOfWeek = convertNumberToNameOfWeek(fiveMoreDaysOfWeekUTC.getUTCDay());
 
-  const nowDay = convertNumberToNameOfWeek(nowDayConvertDay);
-  const oneMoreDayOfWeek = convertNumberToNameOfWeek(oneMoreDayConvertDay);
-  const twoMoreDaysOfWeek = convertNumberToNameOfWeek(twoMoreDaysConvertDay);
-  const threeMoreDaysOfWeek = convertNumberToNameOfWeek(threeMoreDaysConvertDay);
-  const fourMoreDaysOfWeek = convertNumberToNameOfWeek(fourMoreDaysConvertDay);
-  const fiveMoreDaysOfWeek = convertNumberToNameOfWeek(fiveMoreDaysConvertDay);
-
-  const hourNow = convertUTCDateToLocalDate(timestampHourNow)
+  const hourNow = time;
   const oneHourLater = time === "23" ? 0 : time + 1;
   const twoHoursLater = time === "22" ? 0 : time + 2;
   const threeHoursLater = time === "21" ? 0 : time + 3;
