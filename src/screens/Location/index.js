@@ -77,6 +77,11 @@ const Location = ({ route, navigation }) => {
       if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/day/thunder.png')}
       if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/day/snowfall.png')}
       if(weather === 'Fog') {return background = require('../../../assets/images/weather/background/day/fog.png')}
+      if(weather === 'Ash') {return background = require('../../../assets/images/weather/background/day/ash.png')}
+      if(weather === 'Dust') {return background = require('../../../assets/images/weather/background/day/dust.png')}
+      if(weather === 'Sand') {return background = require('../../../assets/images/weather/background/day/sand.png')}
+      if(weather === 'Smoke') {return background = require('../../../assets/images/weather/background/day/smoke.png')}
+      if(weather === 'Tornado') {return background = require('../../../assets/images/weather/background/day/tornado.png')}
     }
   
     if((time >= 18) || (time <= 5)){
@@ -86,6 +91,11 @@ const Location = ({ route, navigation }) => {
       if(weather === 'Thunderstorm') {return background = require('../../../assets/images/weather/background/night/thunder.png')}
       if(weather === 'Snow') {return background = require('../../../assets/images/weather/background/night/snowfall.png')}
       if(weather === 'Fog') {return background = require('../../../assets/images/weather/background/night/fog.png')}
+      if(weather === 'Ash') {return background = require('../../../assets/images/weather/background/night/ash.png')}
+      if(weather === 'Dust') {return background = require('../../../assets/images/weather/background/night/dust.png')}
+      if(weather === 'Sand') {return background = require('../../../assets/images/weather/background/night/sand.png')}
+      if(weather === 'Smoke') {return background = require('../../../assets/images/weather/background/night/smoke.png')}
+      if(weather === 'Tornado') {return background = require('../../../assets/images/weather/background/night/tornado.png')}
     }
 
   }
