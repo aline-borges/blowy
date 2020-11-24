@@ -39,10 +39,12 @@ const Locations = ({ navigation }) => {
       const hour = date.getUTCHours();
       const minutes = date.getUTCMinutes();
       let newHour = ``;
+      let newMinutes = '';
 
-      hour < 10 ? newHour = `0${hour}` : newHour = `${hour}`
+      hour < 10 ? newHour = `0${hour}` : newHour = `${hour}`;
+      minutes < 10 ? newMinutes = `0${minutes}` : newMinutes = `${minutes}`
 
-      const time = `${newHour}:${minutes}`;
+      const time = `${newHour}:${newMinutes}`;
       
       const datas = {data: response, data2: response2}
       const location = {

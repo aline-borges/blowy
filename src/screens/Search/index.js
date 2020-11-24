@@ -15,6 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { StackActions } from '@react-navigation/native';
 
 import OpenWeather, { getOneCall } from '../../services/apis/openWeather';
+import getLocal from '../../services/apis/pagarMe/';
 
 const Search = ({ navigation, route }) => {
   const [query, setQuery] = useState('');
@@ -35,30 +36,66 @@ const Search = ({ navigation, route }) => {
     )
 
   const handleSubmit = async () => {
-    const data = await OpenWeather(query);
+    const checkNumberInString = /^[0-9]+$/;
 
-    if (data.cod === 200) {
-      const data2 = await getOneCall(data.coord.lat, data.coord.lon);
-      const datas = {data: data, data2: data2}
-      saveData(data.name);
-      const timezone = data2.timezone;
-      const time = new Date().toLocaleTimeString("pt-BR", {timeZone: timezone}).split(':');
-      const hour = `${time[0]}:${time[1]}`;
-      const location = {
-        data,
-        data2,
-        hour
+    if (checkNumberInString.test(query) === false) {
+      const data = await OpenWeather(query);
+      
+      if (data.cod === 200) {
+        const data2 = await getOneCall(data.coord.lat, data.coord.lon);
+        const datas = {data: data, data2: data2}
+        saveData(data.name);
+        const timezone = data2.timezone;
+        const time = new Date().toLocaleTimeString("pt-BR", {timeZone: timezone}).split(':');
+        const hour = `${time[0]}:${time[1]}`;
+        const location = {
+          data,
+          data2,
+          hour
+        }
+        updateLocations([...currentLocations, location]);
+        navigation.dispatch(
+          StackActions.replace('Location', {
+            cityData: datas,
+          })
+        );
       }
-      updateLocations([...currentLocations, location]);
-      navigation.dispatch(
-        StackActions.replace('Location', {
-          cityData: datas,
-        })
-      );
+      
+      if(data.cod === '404') {
+        notFoundAlert();
+      }
     }
-    
-    if(data.cod === '404') {
-      notFoundAlert();
+    else {
+      const { city, errors } = await getLocal(query);
+
+      if (city) {
+        const data = await OpenWeather(city);
+      
+        if (data.cod === 200) {
+          const data2 = await getOneCall(data.coord.lat, data.coord.lon);
+          const datas = {data: data, data2: data2}
+          console.log(city.id)
+          saveData(city);
+          const timezone = data2.timezone;
+          const time = new Date().toLocaleTimeString("pt-BR", {timeZone: timezone}).split(':');
+          const hour = `${time[0]}:${time[1]}`;
+          const location = {
+            data,
+            data2,
+            hour
+          }
+          updateLocations([...currentLocations, location]);
+          navigation.dispatch(
+            StackActions.replace('Location', {
+              cityData: datas,
+            })
+          );
+        }
+      }
+      
+      if(errors) {
+        notFoundAlert();
+      }
     }
   };
 
