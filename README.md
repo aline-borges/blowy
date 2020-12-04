@@ -1,33 +1,57 @@
-# Blowy App 
+<p align="center"> 
+  <img src="https://github.com/aline-borges/blowy/blob/master/assets/images/readme-banner?raw=true">
+</p>
 
-[![expo](https://github.com/aline-borges/blowy/blob/master/assets/images/badges/expo.png?raw=true)](https://expo.io/)
-[![javascript](https://github.com/aline-borges/blowy/blob/master/assets/images/badges/javascript.png?raw=true)](https://www.javascript.com/)
-[![reactnative](https://github.com/aline-borges/blowy/blob/master/assets/images/badges/reactNative.png?raw=true)](https://reactnative.dev/)
+<p align="center"> 
+  <a href="https://snack.expo.io/@alineborges/bfc3d7">
+    <img src="https://github.com/aline-borges/blowy/blob/master/assets/images/badges/demo.png">
+  </a> 
+</p>
 
-##### 
+<p align="center"> 
+  <img src="https://github.com/aline-borges/blowy/blob/master/assets/images/blowy-screen.png">
+</p>
 
-### Sobre o Projeto
+<p align="center"> 
+  <img src="https://github.com/aline-borges/blowy/blob/master/assets/images/badges/expo.png?raw=true">
+  <img src="https://github.com/aline-borges/blowy/blob/master/assets/images/badges/javascript.png?raw=true">
+  <img src="https://github.com/aline-borges/blowy/blob/master/assets/images/badges/reactNative.png">
+</p>
 
-Aplicativo de Clima, que fornece informações sobre a localização desejada.
+[![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://snack.expo.io/@alineborges/bfc3d7)
 
-### Open Weather Map
-Api utilizada no projeto.
-https://openweathermap.org/guide
+### About the Project :construction_worker:
 
-#### Lista de Elementos do Site
-#
+Climate Application, which provides information on the required location.
 
-| Tela Inicial  |
-| ------ |
-| Lista de Localizações Favoritas: Elemento que mostra além da lista de locais, a opção de adicionar uma localização. Ela navega para tela de busca. | 
+### Open Weather Map :partly_sunny:
+<p>Api used in the project. </p>
+<a href="https://openweathermap.org/guide">
+  More About The API
+</a>
 
-| Tela de Busca |
-| ------ |
-| Input de Pesquisa: Elemento onde o usuário realiza a busca. Ela navega para a tela de localização. | 
+### List of Site Elements :clipboard:
 
-| Tela de Localização |
-| ------ |
-| Informações sobre a localização: Elemento que mostra informações sobre a localização como nome da cidade, temperatura atual, temperatura mínima, temperatura máxima, temperatura das próximas 3 horas, temperatura mínima e máxima dos próximos 5 dias.  | 
+| Home Screen 🏠 | Search Screen 🔍 | Localization Screen 🌎 |
+| ------ | ------ | ------ |
+| Favorite Locations List: Element that shows in addition to the list of locations, the option to add a location. It navigates to the search screen. | Search Input: Element where the user performs the search. It navigates to the location screen. | Location Information: Element that shows information on location and temperature for the next 3 hours, minimum and maximum temperature for the next 5 days.
 
-## Desenvolvimento no Servidor
-Para rodar esse projeto na sua maquina, após clonar o repositório, digite expo start e será redirecionado para o link  http://localhost:19002/.  A aplicação faz o reload automático a cada mudança realizada no código. 
+### Installation :wrench:
+
+```sh
+# Install the comand line tools
+$ npm install --global expo-cli
+```
+
+### Server Development :computer:
+
+```sh
+# To run this project on your machine, after cloning the repository, type expo start
+$ expo start
+```
+
+ You will be redirected to the link http://localhost:19002/. The application automatically reloads each change in the code.
+
+If you don't already have a packager running for this project, expo will start one for you.
+
+:pushpin: Please note: When you run expo build, Expo automatically publishes your app (with expo publish). In order to avoid accidentally publishing changes to your production app, you may want to use release channels.
