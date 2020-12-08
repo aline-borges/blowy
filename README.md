@@ -24,8 +24,6 @@
   <img src="https://github.com/aline-borges/blowy/blob/master/assets/images/badges/reactNative.png">
 </p>
 
-[![runs with expo](https://img.shields.io/badge/Runs%20with%20Expo-4630EB.svg?style=flat-square&logo=EXPO&labelColor=f3f3f3&logoColor=000)](https://snack.expo.io/@alineborges/bfc3d7)
-
 ### About the Project :construction_worker:
 
 Climate Application, which provides information on the required location.
